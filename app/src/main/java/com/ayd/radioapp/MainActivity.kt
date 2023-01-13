@@ -1,23 +1,16 @@
 package com.ayd.radioapp
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
+import com.ayd.radioapp.databinding.ActivityMainBinding
+import com.ayd.radioapp.model.Radio
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.util.NotificationUtil.createNotificationChannel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -25,33 +18,21 @@ import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var btnPlay: Button
-    private lateinit var btnPause: Button
-    private lateinit var nextSong: Button
-    private lateinit var backSong: Button
-
-    private val NOTIFICATION_ID = 1
-    private lateinit var notificationManager: NotificationManager
+    lateinit var binding: ActivityMainBinding
 
     private lateinit var player: SimpleExoPlayer
     private lateinit var defaultHttpDataSourceFactory: DefaultHttpDataSourceFactory
 
     private var currentIndex = 0
-    private val urls = mutableListOf<String>()
+    private val urls = mutableListOf<Radio>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        btnPlay = findViewById(R.id.startButton)
-        btnPause = findViewById(R.id.pauseButton)
-        nextSong = findViewById(R.id.nextButton)
-        backSong = findViewById(R.id.backButton)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        createNotificationChannel()
 
         val database = FirebaseDatabase.getInstance("https://radioapp-279ba-default-rtdb.firebaseio.com")
         val myRef = database.reference
@@ -61,8 +42,14 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (snapshot in dataSnapshot.children) {
-                    val item = snapshot.getValue(String::class.java).toString()
-                    urls.add(item)
+
+                    val link = snapshot.child("link").getValue(String::class.java).toString()
+                    val type = snapshot.child("type").getValue(String::class.java).toString()
+                    val name = snapshot.child("name").getValue(String::class.java).toString()
+
+                    val radio = Radio(name, type, link)
+                    urls.add(radio)
+
                 }
                 // do something with the items list
             }
@@ -76,28 +63,22 @@ class MainActivity : AppCompatActivity() {
         player = ExoPlayerFactory.newSimpleInstance(this)
         defaultHttpDataSourceFactory = DefaultHttpDataSourceFactory()
 
-        btnPlay.setOnClickListener {
+        binding.startButton.setOnClickListener {
             playAudio()
         }
-        btnPause.setOnClickListener {
+        binding.pauseButton.setOnClickListener {
             pauseAudio()
         }
 
-        nextSong.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             nextAudio()
         }
-        backSong.setOnClickListener {
+        binding.backButton.setOnClickListener {
             backAudio()
         }
 
     }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel("channelId", "channelName", NotificationManager.IMPORTANCE_LOW)
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
 
     private fun nextAudio() {
         currentIndex = (currentIndex + 1) % urls.size
@@ -111,63 +92,26 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun playAudio() {
-        val mediaItem = MediaItem.fromUri(urls[currentIndex])
-        val mediaSource = HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem) //HlsMediaSource -> ProgressiveMediaSource
-        player.prepare(mediaSource)
-        player.playWhenReady = true
-        Toast.makeText(this,"Çalışıyor",Toast.LENGTH_SHORT).show()
-
-        val fullScreenIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        val pauseIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("ACTION", "PAUSE")
+        if(urls.isNotEmpty()){
+            val mediaItem = MediaItem.fromUri(urls[currentIndex].link!!)
+            if(urls[currentIndex].type=="m3u8"){
+                val mediaSource = HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem) //HlsMediaSource -> ProgressiveMediaSource
+                player.prepare(mediaSource)
+            }else{ //link and mp3
+                val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem) //HlsMediaSource -> ProgressiveMediaSource
+                player.prepare(mediaSource)
+            }
+            player.playWhenReady = true
+            Toast.makeText(this,urls[currentIndex].name,Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this, "list is null!", Toast.LENGTH_SHORT).show()
         }
-        val pausePendingIntent = PendingIntent.getActivity(this, 0, pauseIntent, 0)
-
-        val builder = NotificationCompat.Builder(this, "channelId")
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Playing")
-            .setAutoCancel(false)
-            .setOngoing(true)
-            .setFullScreenIntent(pendingIntent, true)
-            .addAction(R.drawable.ic_launcher_foreground, "Pause", pausePendingIntent)
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
-
-
     }
 
 
     private fun pauseAudio() {
         player.playWhenReady = false
-        Toast.makeText(this,"Durdu",Toast.LENGTH_SHORT).show()
-
-        val fullScreenIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        val pauseIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("ACTION", "START")
-        }
-        val pausePendingIntent = PendingIntent.getActivity(this, 0, pauseIntent, 0)
-
-        val builder = NotificationCompat.Builder(this, "channelId")
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Paused")
-            .setAutoCancel(false)
-            .setOngoing(true)
-            .setFullScreenIntent(pendingIntent, true)
-            .addAction(R.drawable.ic_launcher_foreground, "Start", pausePendingIntent)
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
-    }
-
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent?.getStringExtra("ACTION") == "PAUSE") {
-            //pauseAudio()
-        } else if (intent?.getStringExtra("ACTION") == "PLAY") {
-            playAudio()
-        }
+        Toast.makeText(this,"stopped.",Toast.LENGTH_SHORT).show()
     }
 
 
