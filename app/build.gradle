@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.ayd.radioapp"
-        minSdk 23
+        minSdk 22
         //noinspection ExpiredTargetSdkVersion
         targetSdk 32
         versionCode 1

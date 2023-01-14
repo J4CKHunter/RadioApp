@@ -10,6 +10,7 @@ import com.ayd.radioapp.model.Radio
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -26,6 +27,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var currentIndex = 0
 
+    private var mediaSource: MediaSource? = null
+
     val urls = MutableLiveData<List<Radio>>()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -36,7 +39,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
 
-            val database = FirebaseDatabase.getInstance("https://radioapp-279ba-default-rtdb.firebaseio.com")
+            val database = FirebaseDatabase.getInstance("https://radioapp-279ba-default-rtdb.firebaseio.com/")
             val myRef = database.reference
 
             myRef.addValueEventListener(object : ValueEventListener {
@@ -79,15 +82,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun playAudio() {
         if(urls.value!!.isNotEmpty()){
             val mediaItem = MediaItem.fromUri(urls.value!![currentIndex].link!!)
-            if(urls.value!![currentIndex].type=="m3u8"){
-                val mediaSource = HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
-                player.prepare(mediaSource)
-            }else{
-                val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
-                player.prepare(mediaSource)
-            }
-            player.playWhenReady = true
 
+            mediaSource = if(urls.value!![currentIndex].type=="m3u8"){
+                HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
+            }else{
+                ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
+            }
+
+            mediaSource?.let { mediaSrc ->
+                player.prepare(mediaSrc)
+            }
+
+            player.playWhenReady = true
             toastMessage.postValue(urls.value!![currentIndex].name)
         }else{
             // show toast for empty list
