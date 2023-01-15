@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "744361095640",
+    "project_id": "radio-app-abc8d",
+    "storage_bucket": "radio-app-abc8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744361095640:android:06c89b1aa676146f40c2ad",
+        "android_client_info": {
+          "package_name": "com.ayd.radioapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "744361095640-klekk00hn8re04503tuepnfjioslft4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8Yzs1VnvcaoDp6-vykGDIMnbgZdQEJKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "744361095640-klekk00hn8re04503tuepnfjioslft4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
