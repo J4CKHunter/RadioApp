@@ -5,44 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:weightSum="5">
+    android:orientation="vertical">
 
 
-    <Button
+  <!--  <Button
         android:id="@+id/radioOpeningSwitch"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Aç/Kapa"/>
+        android:layout_height="64.5dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#FF4136"
+        android:background="@drawable/power"
+        android:text="Aç/Kapa"/>-->
 
-    <Button
-        android:id="@+id/channel_next"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="kanal arttır" />
 
-    <Button
-        android:id="@+id/channel_previous"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="kanal azalt" />
-
-    <Button
-        android:id="@+id/voice_increase"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="ses arttır" />
-
-    <Button
-        android:id="@+id/voice_decrease"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="ses azalt" />
+    <ImageButton
+        android:id="@+id/radioOpeningSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="64.5dp"
+        android:text="Aç/Kapa"
+        android:background="@drawable/power_button"/>
 
 
 </LinearLayout>

@@ -101,12 +101,25 @@ class MainActivity : AppCompatActivity() {
 //        val testIntent = Intent(applicationContext, MainActivity::class.java)
 //        val testPendingIntent = PendingIntent.getActivity(this, 1, testIntent, PendingIntent.FLAG_ONE_SHOT)
 
-            val notificationView = RemoteViews(packageName,R.layout.custom_notification_layout)
-            notificationView.setOnClickPendingIntent(R.id.radioOpeningSwitch,openCloseButtonPendingIntent)
-            notificationView.setOnClickPendingIntent(R.id.channel_next,nextChannelPendingIntent)
-            notificationView.setOnClickPendingIntent(R.id.channel_previous,previousChannelPendingIntent)
+        val notificationView = RemoteViews(packageName,R.layout.custom_notification_layout)
+        val notificationView2 = RemoteViews(packageName,R.layout.custom_notification_layout2)
+        val notificationView3 = RemoteViews(packageName,R.layout.custom_notification_layout3)
+        //val notificationView4 = RemoteViews(packageName,R.layout.custom_notification_layout)
+        //val notificationView5 = RemoteViews(packageName,R.layout.custom_notification_layout)
+
+
+        notificationView.setOnClickPendingIntent(R.id.radioOpeningSwitch,openCloseButtonPendingIntent)
+        notificationView2.setOnClickPendingIntent(R.id.channel_next,nextChannelPendingIntent)
+        notificationView2.setOnClickPendingIntent(R.id.channel_previous,previousChannelPendingIntent)
+        notificationView3.setOnClickPendingIntent(R.id.voice_increase,volumeUpPendingIntent)
+        notificationView3.setOnClickPendingIntent(R.id.voice_decrease,volumeDownPendingIntent)
+
+
+
+
+     /*       notificationView.setOnClickPendingIntent(R.id.channel_previous,previousChannelPendingIntent)
             notificationView.setOnClickPendingIntent(R.id.voice_increase,volumeUpPendingIntent)
-            notificationView.setOnClickPendingIntent(R.id.voice_decrease,volumeDownPendingIntent)
+            notificationView.setOnClickPendingIntent(R.id.voice_decrease,volumeDownPendingIntent)*/
 
         //val intentx = Intent(this, FullscreenNotificationActivity::class.java)
         //val pendingIntent = PendingIntent.getActivity(applicationContext, 30, intentx, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -117,8 +130,9 @@ class MainActivity : AppCompatActivity() {
 //            .setContentTitle("")
 //            .setContentText("")
 //            .setContentIntent(testPendingIntent)
-//              .setCustomContentView(notificationView)
-              .setCustomBigContentView(notificationView)
+              .setCustomContentView(notificationView)
+ //           .setCustomContentView(notificationView2)
+             // .setCustomBigContentView(notificationView)
  //           .setFullScreenIntent(pendingIntent, true)
             //.addAction(R.drawable.ic_launcher_background, "Button", pendingIntent)
 //            .addAction(R.id.radioOpeningSwitch,"1", openCloseButtonPendingIntent)
@@ -131,13 +145,33 @@ class MainActivity : AppCompatActivity() {
             .setOngoing(true)
             .setAutoCancel(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        val builder2 = NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setCustomContentView(notificationView2)
+            .setOngoing(true)
+            .setAutoCancel(true)
+
+
+        val builder3 = NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setCustomContentView(notificationView3)
+            .setOngoing(true)
+            .setAutoCancel(true)
+
+
+
+
+  /*      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel("0", "My channel", NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
             builder.setChannelId("0")
-        }
+        }*/
 
         notificationManager.notify(0, builder.build())
+        notificationManager.notify(1,builder2.build())
+        notificationManager.notify(2,builder3.build())
+
     }
 
 
