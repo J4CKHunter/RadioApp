@@ -1,89 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal">
-
-
-<ImageButton
-    android:id="@+id/voice_decrease"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64.5dp"
-    android:layout_weight="1"
-    android:text="Aç/Kapa"
-    android:background="@drawable/volume_down_new"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="5">
 
 
-<ImageButton
-    android:id="@+id/radioOpeningSwitch"
-    android:layout_width="wrap_content"
-    android:layout_height="64.5dp"
-    android:background="@drawable/power_off_new"/>
+    <Button
+        android:id="@+id/radioOpeningSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Aç/Kapa"/>
 
-<ImageButton
-    android:id="@+id/voice_increase"
-    android:layout_width="match_parent"
-    android:layout_height="64.5dp"
-    android:layout_weight="1"
-    android:text="Aç/Kapa"
-    android:background="@drawable/volume_up_new"/>
+    <Button
+        android:id="@+id/channel_next"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="kanal arttır" />
+
+    <Button
+        android:id="@+id/channel_previous"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="kanal azalt" />
+
+    <Button
+        android:id="@+id/voice_increase"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="ses arttır" />
+
+    <Button
+        android:id="@+id/voice_decrease"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="ses azalt" />
+
 
 </LinearLayout>
-
-
-
-
-    <!--
-    <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <ImageButton
-            android:id="@+id/voice_decrease"
-            android:layout_width="158dp"
-            android:layout_height="67dp"
-            android:background="@drawable/volume_down_new"
-            android:text="Aç/Kapa"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/radioOpeningSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="64.5dp"
-            android:background="@drawable/power_off_new"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/voice_increase"
-            app:layout_constraintHorizontal_bias="0.044"
-            app:layout_constraintStart_toEndOf="@+id/voice_decrease"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/voice_increase"
-            android:layout_width="149dp"
-            android:layout_height="67dp"
-            android:background="@drawable/volume_up_new"
-            android:text="Aç/Kapa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    -->
-
-
-
-
-
-
