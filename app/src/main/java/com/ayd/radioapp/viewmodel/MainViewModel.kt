@@ -3,12 +3,9 @@ package com.ayd.radioapp.viewmodel
 import android.app.Application
 import android.content.Context
 import android.media.AudioManager
-import android.os.Parcelable
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.ayd.radioapp.model.Radio
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.MediaItem
@@ -130,4 +127,5 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     fun releasePlayer() {
         player.release()
     }
+
 }

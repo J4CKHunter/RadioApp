@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\King\.android\avd\Erdemin_Babannesi.avd" />
+            <value value="C:\Users\erdem\.android\avd\Samsung_J5_API_22.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-01-16T12:06:51.086869300Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-01-16T14:36:53.735841Z" />
   </component>
 </project>

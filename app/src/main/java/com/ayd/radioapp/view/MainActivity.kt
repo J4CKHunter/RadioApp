@@ -1,23 +1,23 @@
 package com.ayd.radioapp.view
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.ayd.radioapp.NotificationReceiver
+import com.ayd.radioapp.receiver.AdminReceiver
+import com.ayd.radioapp.receiver.NotificationReceiver
 import com.ayd.radioapp.R
 import com.ayd.radioapp.databinding.ActivityMainBinding
 import com.ayd.radioapp.viewmodel.MainViewModel
@@ -87,7 +87,12 @@ class MainActivity : AppCompatActivity() {
 
 
         notificationManager = NotificationManagerCompat.from(this)
+
         createNotification()
+
+        lockTheScreen()
+
+//        createFullscreenNotification()
 
 
     }
@@ -184,11 +189,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel("0", "My channel", NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(channel)
-            builder.setChannelId("0")
-        }*/
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel("0", "My channel", NotificationManager.IMPORTANCE_HIGH)
+//            notificationManager.createNotificationChannel(channel)
+//            builder.setChannelId("0")
+//        }
 
         notificationManager.notify(0, builder.build())
         Thread.sleep(250)
@@ -196,6 +201,87 @@ class MainActivity : AppCompatActivity() {
  /*       Thread.sleep(250)
         notificationManager.notify(2,builder3.build())*/
 
+    }
+
+    private fun createFullscreenNotification(){
+
+
+        val contentIntent = Intent(this, MainActivity::class.java)
+        val contentPendingIntent = PendingIntent.getActivity(this, 0, contentIntent, 0)
+
+        val fullScreenIntent = Intent(this, LockscreenActivity::class.java)
+        val fullScreenPendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, 0)
+
+        val builder =  NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.notifications_active_black_24)
+            .setColor(ResourcesCompat.getColor(resources, R.color.purple_200, null))
+            .setContentTitle("Heads Up Notification")
+            .setAutoCancel(true)
+            .setContentIntent(contentPendingIntent)
+            .setFullScreenIntent(fullScreenPendingIntent, true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+
+        notificationManager.notify(15, builder.build())
+
+
+
+/*        val contentIntent = Intent(this, LockscreenActivity::class.java)
+        val contentPendingIntent = PendingIntent.getActivity(this, 0, contentIntent, 0)
+
+        val fullScreenIntent = Intent(this, LockscreenActivity::class.java)
+        val fullScreenPendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, 0)
+
+        val builder15 = NotificationCompat.Builder(this )
+                .setSmallIcon(R.drawable.ic_launcher_background)
+//                .setColor(ResourcesCompat.getColor(context.resources, R.color.purple_200, null))
+//                .setContentTitle(context.getString(R.string.notification_title))
+                .setAutoCancel(true)
+                .setContentIntent(contentPendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+
+
+
+        val builder16 = NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+//            .setColor(ResourcesCompat.getColor(context.resources, R.color.purple_200, null))
+//            .setContentTitle(context.getString(R.string.notification_title))
+            .setAutoCancel(true)
+            .setContentIntent(contentPendingIntent)
+            .setFullScreenIntent(fullScreenPendingIntent, true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+
+
+
+        notificationManager.notify(15, builder15.build())
+        Thread.sleep(250)
+        notificationManager.notify(16, builder16.build())*/
+
+    }
+
+    private fun lockTheScreen() {
+        val powerManager: PowerManager = getSystemService(POWER_SERVICE) as PowerManager
+        if (powerManager.isScreenOn()) {
+            val policy: DevicePolicyManager =
+                getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            try {
+                policy.lockNow()
+            } catch (ex: SecurityException) {
+                Toast.makeText(
+                    this,
+                    "must enable device administrator",
+                    Toast.LENGTH_LONG
+                ).show()
+                val admin = ComponentName(this, AdminReceiver::class.java)
+                val intent: Intent = Intent(
+                    DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN
+                ).putExtra(
+                    DevicePolicyManager.EXTRA_DEVICE_ADMIN, admin
+                )
+                this.startActivity(intent)
+            }
+        }
     }
 
 
