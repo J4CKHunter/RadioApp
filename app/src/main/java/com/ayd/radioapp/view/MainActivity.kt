@@ -124,16 +124,17 @@ class MainActivity : AppCompatActivity() {
 
         val notificationView = RemoteViews(packageName,R.layout.custom_notification_layout)
         val notificationView2 = RemoteViews(packageName,R.layout.custom_notification_layout2)
-        val notificationView3 = RemoteViews(packageName,R.layout.custom_notification_layout3)
+        //val notificationView3 = RemoteViews(packageName,R.layout.custom_notification_layout3)
         //val notificationView4 = RemoteViews(packageName,R.layout.custom_notification_layout)
         //val notificationView5 = RemoteViews(packageName,R.layout.custom_notification_layout)
 
 
         notificationView.setOnClickPendingIntent(R.id.radioOpeningSwitch,openCloseButtonPendingIntent)
+        notificationView.setOnClickPendingIntent(R.id.voice_increase,volumeUpPendingIntent)
+        notificationView.setOnClickPendingIntent(R.id.voice_decrease,volumeDownPendingIntent)
         notificationView2.setOnClickPendingIntent(R.id.channel_next,nextChannelPendingIntent)
         notificationView2.setOnClickPendingIntent(R.id.channel_previous,previousChannelPendingIntent)
-        notificationView3.setOnClickPendingIntent(R.id.voice_increase,volumeUpPendingIntent)
-        notificationView3.setOnClickPendingIntent(R.id.voice_decrease,volumeDownPendingIntent)
+
 
 
 
@@ -174,11 +175,11 @@ class MainActivity : AppCompatActivity() {
             .setAutoCancel(true)
 
 
-        val builder3 = NotificationCompat.Builder(this)
+/*        val builder3 = NotificationCompat.Builder(this)
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setCustomContentView(notificationView3)
             .setOngoing(true)
-            .setAutoCancel(true)
+            .setAutoCancel(true)*/
 
 
 
@@ -192,8 +193,8 @@ class MainActivity : AppCompatActivity() {
         notificationManager.notify(0, builder.build())
         Thread.sleep(250)
         notificationManager.notify(1,builder2.build())
-        Thread.sleep(250)
-        notificationManager.notify(2,builder3.build())
+ /*       Thread.sleep(250)
+        notificationManager.notify(2,builder3.build())*/
 
     }
 

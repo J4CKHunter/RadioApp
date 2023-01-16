@@ -29,7 +29,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     private var player: SimpleExoPlayer
     private var defaultHttpDataSourceFactory: DefaultHttpDataSourceFactory
 
-    val audioManager = application.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val audioManager = application.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
     private var currentIndex = 0
 
@@ -51,7 +51,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
 
         viewModelScope.launch {
 
-            val database = FirebaseDatabase.getInstance("https://radioapp-279ba-default-rtdb.firebaseio.com/")
+            val database = FirebaseDatabase.getInstance("https://radio-app-abc8d-default-rtdb.europe-west1.firebasedatabase.app/")
             val myRef = database.reference
 
             myRef.addValueEventListener(object : ValueEventListener {

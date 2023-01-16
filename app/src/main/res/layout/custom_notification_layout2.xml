@@ -13,7 +13,7 @@
         android:layout_height="64.5dp"
         android:layout_weight="1"
         android:text="Aç/Kapa"
-        android:background="@drawable/previous_channel"/>
+        android:background="@drawable/previous_channel_new"/>
 
     <ImageButton
         android:id="@+id/channel_next"
@@ -21,7 +21,7 @@
         android:layout_height="64.5dp"
         android:layout_weight="1"
         android:text="Aç/Kapa"
-        android:background="@drawable/next_channel"/>
+        android:background="@drawable/next_channel_new"/>
 
 
 
