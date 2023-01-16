@@ -29,7 +29,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     private var player: SimpleExoPlayer
     private var defaultHttpDataSourceFactory: DefaultHttpDataSourceFactory
 
-    val audioManager = application.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val audioManager = application.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
     private var currentIndex = 0
 
@@ -38,6 +38,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val urls = MutableLiveData<List<Radio>>()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
+
+    companion object{
+        var isOpen = false
+    }
+
+
     init {
 
         player = ExoPlayerFactory.newSimpleInstance(application.applicationContext)
@@ -45,7 +51,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
 
         viewModelScope.launch {
 
-            val database = FirebaseDatabase.getInstance("https://radioapp-279ba-default-rtdb.firebaseio.com/")
+            val database = FirebaseDatabase.getInstance("https://radio-app-abc8d-default-rtdb.europe-west1.firebasedatabase.app/")
             val myRef = database.reference
 
             myRef.addValueEventListener(object : ValueEventListener {
@@ -105,10 +111,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
             // show toast for empty list
             toastMessage.postValue("list is null!")
         }
+        isOpen = true
     }
 
     fun pauseAudio() {
         player.playWhenReady = false
+        isOpen = false
     }
 
     fun volumeUp(){
