@@ -8,21 +8,10 @@
     android:orientation="vertical">
 
 
-  <!--  <Button
-        android:id="@+id/radioOpeningSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="64.5dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#FF4136"
-        android:background="@drawable/power"
-        android:text="Aç/Kapa"/>-->
-
-
-    <ImageButton
+   <ImageButton
         android:id="@+id/radioOpeningSwitch"
         android:layout_width="wrap_content"
         android:layout_height="64.5dp"
-        android:text="Aç/Kapa"
         android:background="@drawable/power_button"/>
 
 

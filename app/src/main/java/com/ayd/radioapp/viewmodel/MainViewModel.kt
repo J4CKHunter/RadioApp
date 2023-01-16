@@ -38,6 +38,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val urls = MutableLiveData<List<Radio>>()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
+
+    companion object{
+        var isOpen = false
+    }
+
+
     init {
 
         player = ExoPlayerFactory.newSimpleInstance(application.applicationContext)
@@ -105,10 +111,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
             // show toast for empty list
             toastMessage.postValue("list is null!")
         }
+        isOpen = true
     }
 
     fun pauseAudio() {
         player.playWhenReady = false
+        isOpen = false
     }
 
     fun volumeUp(){

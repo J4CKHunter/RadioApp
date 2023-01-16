@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.orangeButton.visibility = View.VISIBLE
+        binding.redButton.visibility = View.INVISIBLE
+
         viewModel = ViewModelProvider(this,
         ViewModelProvider.AndroidViewModelFactory(application))[MainViewModel::class.java]
 
@@ -47,19 +51,36 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
-        binding.startButton.setOnClickListener {
-            viewModel.playAudio()
+        binding.orangeButton.setOnClickListener {
+                viewModel.playAudio()
+                binding.orangeButton.visibility = View.INVISIBLE
+                binding.redButton.visibility = View.VISIBLE
         }
-        binding.pauseButton.setOnClickListener {
-            viewModel.pauseAudio()
+        binding.redButton.setOnClickListener {
+                viewModel.pauseAudio()
+                binding.orangeButton.visibility = View.VISIBLE
+                binding.redButton.visibility = View.INVISIBLE
+
         }
 
         binding.nextButton.setOnClickListener {
-            viewModel.nextAudio()
+            if(MainViewModel.isOpen){
+                viewModel.nextAudio()
+            }
         }
         binding.backButton.setOnClickListener {
-            viewModel.backAudio()
+            if(MainViewModel.isOpen){
+                viewModel.backAudio()
+            }
         }
+
+        binding.voiceUpButton.setOnClickListener {
+            viewModel.volumeUp()
+        }
+        binding.voiceDownButton.setOnClickListener {
+            viewModel.volumeDown()
+        }
+
 
         val filter = IntentFilter("notification_clicked")
         registerReceiver(NotificationReceiver(viewModel), filter)
@@ -162,14 +183,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
-  /*      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel("0", "My channel", NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
             builder.setChannelId("0")
         }*/
 
         notificationManager.notify(0, builder.build())
+        Thread.sleep(250)
         notificationManager.notify(1,builder2.build())
+        Thread.sleep(250)
         notificationManager.notify(2,builder3.build())
 
     }
