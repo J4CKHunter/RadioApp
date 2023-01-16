@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.ayd.radioapp"
-        minSdk 22
+        minSdk 23
         //noinspection ExpiredTargetSdkVersion
         targetSdk 32
         versionCode 1
@@ -58,6 +58,5 @@ dependencies {
     //coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
 }
