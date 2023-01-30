@@ -20,13 +20,13 @@ In this application, Broadcast Receivers were utilized to facilitate communicati
 
 ### Screenshots
 
-#### Notifications
-![1](Screenshots/1.png)
-![2](Screenshots/2.png)
+#### Permanent Notifications
+<img src="https://github.com/aliatillaydemir/RadioApp/blob/master/Screenshots/1.png" width=30% height=70%>&ensp;&ensp;&ensp;
+<img src="https://github.com/aliatillaydemir/RadioApp/blob/master/Screenshots/2.png" width=30% height=70%>&ensp;&ensp;&ensp;
 
 #### Main app
-![3](Screenshots/3.png)
-![4](Screenshots/4.png)
+<img src="https://github.com/aliatillaydemir/RadioApp/blob/master/Screenshots/3.png" width=30% height=70%>&ensp;&ensp;&ensp;
+<img src="https://github.com/aliatillaydemir/RadioApp/blob/master/Screenshots/4.png" width=30% height=70%>&ensp;&ensp;&ensp;
 
 <br/>
 
