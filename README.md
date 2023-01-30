@@ -12,8 +12,8 @@ With this simple approach, she only has to wake the phone up by pressing the pho
 
 - exoplayer
 - firebase
-- 
-
+- coroutines
+- livedata
 
 
 | App | LINK | EXPLANATION |
