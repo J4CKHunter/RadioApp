@@ -18,6 +18,16 @@ With this simple approach, she only has to wake the phone up by pressing the pho
 ### Project Structure
 In this application, Broadcast Receivers were utilized to facilitate communication with push notifications. The MVVM design pattern was adopted as the architectural approach, with the implementation of ViewModel ensuring that the application can run in the background and data is retained even when the screen is turned off or rotated. Communication with the Firebase Real-Time Database is executed asynchronously within a coroutine scope.
 
+### Screenshots
+
+#### Notifications
+![1](Screenshots/1.jpg)
+![2](Screenshots/2.jpg)
+
+#### Main app
+![3](Screenshots/3.jpg)
+![4](Screenshots/4.jpg)
+
 <br/>
 
 | App | LINK | EXPLANATION |
