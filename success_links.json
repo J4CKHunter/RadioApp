@@ -1,0 +1,86 @@
+{
+    "0": {
+      "name" : "radyo-gul",
+      "type" : "link",
+      "link" : "https://yayin2.canliyayin.org:10989/;*.mp3",
+      "isWorking": "true"
+    },
+    "1": {
+      "name" : "arkadas-fm",
+      "type" : "link",
+      "link" : "https://radyo.yayindakiler.com:4134/stream",
+      "isWorking": "true"
+    },
+    "2": {
+      "name" : "lalegul-fm",
+      "type" : "link",
+      "link" : "https://icecast.netmedya.net/lalegulfm",
+      "isWorking": "true"
+    },
+    "3" : {
+      "name" : "nur-fm",
+      "type" : "link",
+      "link" : "https://audio.radyodinle.stream/9406/stream?",
+      "isWorking": "false"
+    },
+    "4" : {
+      "name" : "seyr-fm",
+      "type" : "link",
+      "link" : "https://sslyayin.netyayin.net/8024/stream",
+      "isWorking": "true"
+    },
+    "5" : {
+      "name" : "erkam-radyo",
+      "type" : "link",
+      "link" : "https://yayin2.canliyayin.org:10910/stream",
+      "isWorking": "true"
+    },
+    "6" : {
+      "name" : "ribat-fm",
+      "type" : "link",
+      "link" : "http://yayin1.canliyayin.org:7010/;",
+      "isWorking": "false"
+    },
+    "7" : {
+      "name" : "radyo-umut",
+      "type" : "link",
+      "link" : "http://yayin.canliyayin.org:8892/;",
+      "isWorking": "false"
+    },
+    "8" : {
+      "name" : "dost-fm",
+      "type" : "link",
+      "link" : "https://rdfm.net/live?url=http://yayin.dostfm.com:8920/;*.mp3?&tkn=U3GifsCeQvdSGR0AZvxhrg&expires=1673711517",
+      "isWorking": "true"
+    },
+    "9" : {
+      "name" : "radyo7-tasavvuf",
+      "type" : "mp3",
+      "link" : "https://turku7.radyotvonline.net/tasavvuf7?/;stream.mp3",
+      "isWorking": "true"
+    },
+    "10" : {
+      "name" : "diyanet-risalet-radyo",
+      "type" : "m3u8",
+      "link" : "https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c1520b2626.smil/playlist.m3u8",
+      "isWorking": "true"
+    },
+    "11" : {
+      "name" : "semerkand-radyo",
+      "type" : "m3u8",
+      "link" : "https://mtisvwurbfcyslive.mediatriple.net/mtisvwurbfcyslive/broadcast_58e23cb112296.smil/playlist.m3u8",
+      "isWorking": "true"
+    },
+    "12" : {
+      "name" : "diyanet-kuran",
+      "type" : "m3u8",
+      "link" : "https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c14192aa92.smil/playlist.m3u8",
+      "isWorking": "true"
+    },
+    "13" : {
+      "name" : "diyanet-radyo",
+      "type" : "m3u8",
+      "link" : "https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c1171d7d2a.smil/playlist.m3u8",
+      "isWorking": "true"
+    }
+}
